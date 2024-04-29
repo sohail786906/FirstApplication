@@ -26,9 +26,33 @@ springdoc:
 ---
 reactive:
   feign:
-    circuit:
       breaker:
         enabled: true
+
+    
+    
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/demo_application?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: Sohail@90
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: true
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: true
+
+      
+
   # client:
   #   config:
   #     default:
@@ -96,19 +120,6 @@ management:
       repository:
         autotime:
           enabled: true
-
-spring:
-  application:
-    name: myFirstApplication
-  cloud:
-    consul:
-      discovery:
-        healthCheckPath: /management/health
-        instanceId: myfirstapplication:${spring.application.instance-id:${random.value}}
-        service-name: myfirstapplication
-      config:
-        watch:
-          enabled: false
   profiles:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
     # Otherwise, it will be filled in by maven when building the JAR file
@@ -119,17 +130,16 @@ spring:
         - dev
         - api-docs
         # Uncomment to activate TLS for the dev profile
-        #- tls
-  jmx:
+        #- tls  jmx:
     enabled: false
   messages:
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
-  webflux:
+webflux:
     problemdetails:
       enabled: true
-  task:
+task:
     execution:
       thread-name-prefix: my-first-application-task-
       pool:
@@ -140,9 +150,9 @@ spring:
       thread-name-prefix: my-first-application-scheduling-
       pool:
         size: 2
-  thymeleaf:
+thymeleaf:
     mode: HTML
-  output:
+output:
     ansi:
       console-available: true
 
